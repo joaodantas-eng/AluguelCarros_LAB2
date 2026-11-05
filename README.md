@@ -46,6 +46,11 @@ Pretende-se desenvolver um sistema para apoio à gestão de aluguéis de automó
 ## 📂 Documentação
 
 - [Histórias de usuário](docs/historias-de-usuario.md)
+- Diagramas UML (versão 1 — modelagem inicial):
+  - [Casos de uso](docs/diagramas/v1/casos-de-uso.png)
+  - [Classes](docs/diagramas/v1/classes.png)
+  - [Pacotes (visão lógica)](docs/diagramas/v1/pacotes.png)
+
 
 ## 👥 Autor
 
