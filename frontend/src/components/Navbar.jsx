@@ -4,8 +4,14 @@ import Icone from './Icone'
 
 // Links do menu de cada perfil: [endereço, texto, ícone]
 const LINKS = {
-  CLIENTE: [['/perfil', 'Meu perfil', 'usuario']],
-  AGENTE: [['/agente/clientes', 'Clientes', 'usuarios']],
+  CLIENTE: [
+    ['/pedidos', 'Meus pedidos', 'pedido'],
+    ['/perfil', 'Meu perfil', 'usuario'],
+  ],
+  AGENTE: [
+    ['/agente/pedidos', 'Pedidos', 'pedido'],
+    ['/agente/clientes', 'Clientes', 'usuarios'],
+  ],
 }
 
 // Botão do menu igual ao do portfólio: no hover aparece um círculo com a seta

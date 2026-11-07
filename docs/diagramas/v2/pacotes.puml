@@ -1,0 +1,46 @@
+@startuml pacotes
+title Sistema de Aluguel de Carros - Diagrama de Pacotes / Visão Lógica (v2 - alinhado ao código)
+skinparam packageStyle folder
+
+package "frontend/src (React + Vite) - VIEW" {
+  package "pages" {
+  }
+  package "components" {
+  }
+  package "services" {
+  }
+}
+
+package "backend - br.pucminas.aluguelcarros (Spring Boot)" {
+  package "controller" {
+  }
+  package "dto" {
+  }
+  package "service" {
+  }
+  package "repository" {
+  }
+  package "model" {
+  }
+  package "exception" {
+  }
+  package "config" {
+  }
+}
+
+database "Supabase (PostgreSQL)" as db
+
+pages ..> components
+pages ..> services
+services ..> controller : HTTP / JSON\n(Basic Auth)
+controller ..> service
+controller ..> dto
+service ..> dto
+service ..> repository
+service ..> model
+service ..> exception
+repository ..> model
+config ..> repository
+config ..> service
+repository ..> db : JPA / Hibernate
+@enduml

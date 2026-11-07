@@ -1,0 +1,104 @@
+@startuml classes
+title Sistema de Aluguel de Carros - Diagrama de Classes (v2 - alinhado ao código)
+skinparam classAttributeIconSize 0
+
+package "br.pucminas.aluguelcarros.model" {
+
+abstract class Usuario {
+  - id : Long
+  - login : String
+  - senha : String
+  - nome : String
+  + {abstract} getPerfil() : String
+}
+
+class Cliente {
+  + {static} MAX_RENDIMENTOS : int = 3
+  - rg : String
+  - cpf : String
+  - endereco : String
+  - profissao : String
+  - rendimentos : List<Rendimento>
+  + getPerfil() : String
+}
+
+class Rendimento <<Embeddable>> {
+  - entidadeEmpregadora : String
+  - valor : Double
+}
+
+class Agente {
+  - cnpj : String
+  - tipo : TipoAgente
+  + getPerfil() : String
+}
+
+enum TipoAgente {
+  EMPRESA
+  BANCO
+}
+
+class Automovel {
+  - id : Long
+  - matricula : String
+  - ano : Integer
+  - marca : String
+  - modelo : String
+  - placa : String
+  - proprietario : TipoProprietario
+}
+
+enum TipoProprietario {
+  CLIENTE
+  EMPRESA
+  BANCO
+}
+
+class PedidoAluguel {
+  - id : Long
+  - dataInicio : LocalDate
+  - dataFim : LocalDate
+  - observacao : String
+  - status : StatusPedido
+  - dataCriacao : LocalDateTime
+  - parecer : String
+  + podeSerAlteradoPeloCliente() : boolean
+}
+
+enum StatusPedido {
+  EM_ANALISE
+  APROVADO
+  REPROVADO
+  CANCELADO
+  CONTRATADO
+}
+
+class Contrato {
+  - id : Long
+  - dataAssinatura : LocalDate
+  - proprietario : TipoProprietario
+}
+
+class ContratoCredito {
+  - id : Long
+  - valor : Double
+  - numeroParcelas : Integer
+}
+
+}
+
+Usuario <|-- Cliente
+Usuario <|-- Agente
+Cliente "1" *-- "0..3" Rendimento : rendimentos
+PedidoAluguel "0..*" --> "1" Cliente : cliente
+PedidoAluguel "0..*" --> "1" Automovel : automovel
+PedidoAluguel "0..*" --> "0..1" Agente : agenteAvaliador
+Contrato "0..1" --> "1" PedidoAluguel : pedido
+Contrato "0..*" --> "1" Agente : agente
+ContratoCredito "0..1" --> "1" Contrato : contrato
+ContratoCredito "0..*" --> "1" Agente : banco
+Agente ..> TipoAgente
+Automovel ..> TipoProprietario
+Contrato ..> TipoProprietario
+PedidoAluguel ..> StatusPedido
+@enduml

@@ -114,3 +114,45 @@ export function excluirConta() {
 export function listarClientes() {
   return requisicao('/agente/clientes')
 }
+
+// ===================== AUTOMÓVEIS =====================
+
+export function listarAutomoveis() {
+  return requisicao('/automoveis')
+}
+
+// ===================== PEDIDOS (CLIENTE) =====================
+
+export function meusPedidos() {
+  return requisicao('/cliente/pedidos')
+}
+
+export function criarPedido(dados) {
+  return requisicao('/cliente/pedidos', 'POST', dados)
+}
+
+export function modificarMeuPedido(id, dados) {
+  return requisicao('/cliente/pedidos/' + id, 'PUT', dados)
+}
+
+export function cancelarPedido(id) {
+  return requisicao('/cliente/pedidos/' + id + '/cancelar', 'PATCH')
+}
+
+// ===================== PEDIDOS (AGENTE) =====================
+
+export function todosPedidos() {
+  return requisicao('/agente/pedidos')
+}
+
+export function modificarPedidoAgente(id, dados) {
+  return requisicao('/agente/pedidos/' + id, 'PUT', dados)
+}
+
+export function avaliarPedido(id, dados) {
+  return requisicao('/agente/pedidos/' + id + '/avaliacao', 'PATCH', dados)
+}
+
+export function executarContrato(id, dados) {
+  return requisicao('/agente/pedidos/' + id + '/contrato', 'POST', dados)
+}

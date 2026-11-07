@@ -7,6 +7,8 @@ import RotaProtegida from './components/RotaProtegida'
 import Login from './pages/Login'
 import Cadastro from './pages/Cadastro'
 import Perfil from './pages/Perfil'
+import MeusPedidos from './pages/MeusPedidos'
+import PedidosAgente from './pages/PedidosAgente'
 import Clientes from './pages/Clientes'
 
 function App() {
@@ -16,7 +18,7 @@ function App() {
   // Página inicial de cada perfil
   function paginaInicial() {
     if (!usuario) return '/login'
-    return usuario.perfil === 'AGENTE' ? '/agente/clientes' : '/perfil'
+    return usuario.perfil === 'AGENTE' ? '/agente/pedidos' : '/pedidos'
   }
 
   return (
@@ -31,6 +33,14 @@ function App() {
 
         {/* Páginas do CLIENTE */}
         <Route
+          path="/pedidos"
+          element={
+            <RotaProtegida usuario={usuario} perfil="CLIENTE">
+              <MeusPedidos />
+            </RotaProtegida>
+          }
+        />
+        <Route
           path="/perfil"
           element={
             <RotaProtegida usuario={usuario} perfil="CLIENTE">
@@ -40,6 +50,14 @@ function App() {
         />
 
         {/* Páginas do AGENTE */}
+        <Route
+          path="/agente/pedidos"
+          element={
+            <RotaProtegida usuario={usuario} perfil="AGENTE">
+              <PedidosAgente usuario={usuario} />
+            </RotaProtegida>
+          }
+        />
         <Route
           path="/agente/clientes"
           element={
